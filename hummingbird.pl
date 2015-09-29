@@ -17,6 +17,7 @@ $cfg = new Config::Simple($config);
 
 my $username = $cfg->param('username');
 my $password = $cfg->param('password');
+my $maker_key= $cfg->param('maker_key');
 
 
 my $car_status = login();
@@ -32,7 +33,7 @@ if( $car_status->{ELECTRICDTE} >= $DTE * 1.60934){
 
 
 sub stop_charging{
-  `curl -X POST https://maker.ifttt.com/trigger/car_charged/with/key/dQhorevQtIFEGnzcO6dBi-`;
+  `curl -X POST https://maker.ifttt.com/trigger/car_charged/with/key/$maker_key`;
 }
 
 
@@ -72,7 +73,7 @@ sub wait_for_op{
   }
 
   print "Command didn't complete after 30 seconds.\n";
-  return 1;
+  exit;
 
 }
 
