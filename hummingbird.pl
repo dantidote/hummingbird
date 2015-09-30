@@ -30,7 +30,13 @@ wait_for_op($commandid);
 if( $car_status->{ELECTRICDTE} >= $DTE * 1.60934){
   stop_charging();
 }
+else{
+  start_charging();
+}
 
+sub start_charging{
+  `curl -X POST https://maker.ifttt.com/trigger/car_needs_charge/with/key/$maker_key`;
+}
 
 sub stop_charging{
   `curl -X POST https://maker.ifttt.com/trigger/car_charged/with/key/$maker_key`;
